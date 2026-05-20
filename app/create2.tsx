@@ -54,6 +54,7 @@ export default function Create2() {
   };
 
   const handleCreateGame = () => {
+    if (!socket) return;
 
     if (nickname.trim() === "") {
       Alert.alert("Please enter a nickname");

@@ -77,6 +77,8 @@ export default function Lobby() {
 }, [counter, isCounterVisible, gamerole, secretWord, router]);
 
   useEffect(() => {
+    if (!socket) return;
+
     socket.on("playerList", (playersList: Player[]) => {
       setPlayers(playersList);
       setRoundTime(playersList[0].time);
@@ -118,10 +120,14 @@ export default function Lobby() {
   }, [socket, gameCode]);
 
   const handleStartGame = () => {
+    if (!socket) return;
+
     if (role === "host") socket.emit("startGame", gameCode, "Start");
   };
 
   const handleLeaveGame = () => {
+    if (!socket) return;
+    
     socket.emit("leaveGame", { gameCode, nickname });
     socket.on("leaveSuccess", () => {
       setCounterVisible(false);

@@ -33,6 +33,7 @@ const Chat = ({ gameCode } : {gameCode: string | string[]}) => {
     };
 
     useEffect(() => {
+        if (!socket) return;
         socket.on('message', addMessage);
         return () => { socket.off('message', addMessage); };
     }, [socket]);

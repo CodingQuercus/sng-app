@@ -93,16 +93,33 @@ export default function Draw() {
         return () => subscription?.remove();
     }, [gameCode]);
 
-    useEffect(() => { if (polyLines.length > 0) socket.emit('drawing', { gameCode, drawingData: polyLines }); }, [polyLines]);
-    useEffect(() => { if (path.length > 0) socket.emit('currentLine', { gameCode, currentLine }); }, [path]);
-    useEffect(() => { if (secretWord) setWord(String(secretWord)); }, [secretWord]);
+    useEffect(() => { 
+        if (!socket) return;
+
+        if (polyLines.length > 0) socket.emit('drawing', { gameCode, drawingData: polyLines }); 
+    }, [polyLines]);
+
+    useEffect(() => { 
+        if (!socket) return;
+
+        if (path.length > 0) socket.emit('currentLine', { gameCode, currentLine }); 
+    }, [path]);
+    useEffect(() => { 
+        if (!socket) return;
+
+        if (secretWord) setWord(String(secretWord)); 
+    }, [secretWord]);
 
     useEffect(() => {
+        if (!socket) return;
+
         socket.on('endGame', ({ message } : {message: string}) => { setPopupMessage(message); setPopupVisible(true); });
         return () => { socket.off('endGame'); };
     }, [socket]);
 
     useEffect(() => {
+        if (!socket) return;
+
         const interval = setInterval(() => {
             setTimer(prev => {
                 if (prev <= 1) {

@@ -19,7 +19,9 @@ Originally developed as a group project during the course *Prototyputveckling f√
 ```
 
 2. Create a `.env` file in the root:
+```
 SERVER_URL=http://YOUR_IP:3002
+```
 
 
 3. Start the app

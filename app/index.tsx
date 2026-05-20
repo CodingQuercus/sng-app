@@ -7,11 +7,6 @@ import { Popup } from "../components/Popup";
 
 const { height, width } = Dimensions.get("window");
 
-type GameCreated = {
-    gameCode: string;
-    nickname: string;
-    role: string;
-};
 
 export default function Index() {
   const router = useRouter();

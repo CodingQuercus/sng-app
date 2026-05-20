@@ -46,6 +46,8 @@ export default function Guess() {
     }, []);
 
     useEffect(() => {
+        if (!socket) return;
+
         const handleDrawing = (data: PolylineData[]) => setPaths(data);
 
         const handleCurrentLine = (line: PolylineData) => setCurrentLine(line);
@@ -67,7 +69,10 @@ export default function Guess() {
     }, [socket]);
 
     const handleGuess = () => {
+        if (!socket) return;
+
         if (guess.trim() === "") return;
+        
         socket.emit("message", { gameCode, nickname, message: guess });
         setGuess("");
     };
